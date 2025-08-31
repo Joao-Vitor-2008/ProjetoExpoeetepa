@@ -3,7 +3,6 @@
 /bin/
 /*.class
 /*.jar
-/*.war
 /.idea/
 /.settings/
 
