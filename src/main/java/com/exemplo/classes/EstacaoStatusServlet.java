@@ -6,9 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
-@WebServlet("/status")
-public class StatusServlet extends HttpServlet {
-    private ArduinoManager manager = ArduinoManager.getInstance();
+@WebServlet("/statusEstacao")
+public class EstacaoStatusServlet extends HttpServlet {
+    private EstacaoManager manager = EstacaoManager.getInstance();
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
