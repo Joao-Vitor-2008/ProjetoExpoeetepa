@@ -1,4 +1,4 @@
-package com.exemplo.classes;
+package main.java.com.exemplo.classes;
 
 public class Estacao {
 	
