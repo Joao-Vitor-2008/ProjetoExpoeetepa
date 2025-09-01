@@ -5,7 +5,7 @@ public class Estacao {
 	private String id;
 	private double temperaturaAr;
 	private double umidadeAr;
-	
+
 	public String getId() {
 		return id;
 	}
