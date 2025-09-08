@@ -4,40 +4,33 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 public class IrrigadorManager {
-    private static IrrigadorManager instance = new IrrigadorManager();
+  private static IrrigadorManager instance = new IrrigadorManager();
+  private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
 
-    // Armazena os irrigadores pelo ID
-    private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
+  private IrrigadorManager() {
+  }
 
-    private IrrigadorManager() {}
+  public static IrrigadorManager getInstance() {
+    return instance;
+  }
 
-    public static IrrigadorManager getInstance() {
-        return instance;
-    }
+  public void updateIrrigador(Irrigador irrigador) {
+    irrigadores.put(irrigador.getId(), irrigador);
+  }
 
-    // Adiciona ou atualiza um irrigador
-    public void updateIrrigador(String id, Irrigador irrigador) {
-        irrigadores.put(id, irrigador);
-    }
+  public Irrigador getIrrigador(String id) {
+    return irrigadores.get(id);
+  }
 
-    // Recupera um irrigador pelo ID
-    public Irrigador getIrrigador(String id) {
-        return irrigadores.get(id);
-    }
+  public Map<String, Irrigador> getTodos() {
+    return irrigadores;
+  }
 
-    // Retorna todos os irrigadores
-    public Map<String, Irrigador> getTodos() {
-        return irrigadores;
-    }
+  public void removerIrrigador(String id) {
+    irrigadores.remove(id);
+  }
 
-    // Remove um irrigador pelo ID
-    public void removerIrrigador(String id) {
-        irrigadores.remove(id);
-    }
-
-    // Verifica se um irrigador existe
-    public boolean existeIrrigador(String id) {
-        return irrigadores.containsKey(id);
-    }
+  public boolean existeIrrigador(String id) {
+    return irrigadores.containsKey(id);
+  }
 }
-

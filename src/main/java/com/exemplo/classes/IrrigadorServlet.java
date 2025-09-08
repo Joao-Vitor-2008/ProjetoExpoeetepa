@@ -1,7 +1,6 @@
 package com.exemplo.classes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -22,6 +21,6 @@ public class IrrigadorServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Irrigador irrigador = mapper.readValue(req.getInputStream(), Irrigador.class);
 
-    manager.updateIrrigador(id, irrigador);
+    manager.updateIrrigador(irrigador);
   }
 }
