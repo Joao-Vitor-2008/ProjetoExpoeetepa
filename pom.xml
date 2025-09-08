@@ -6,7 +6,7 @@
 
     <groupId>com.meuapp</groupId>
     <artifactId>ProjetoExpoeetepa</artifactId>
-    <version>PROTOTYPE</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>
@@ -17,7 +17,7 @@
     </properties>
 
     <dependencies>
-        <!-- Servlet API (Tomcat 9 ainda usa javax.servlet, não jakarta) -->
+        <!-- Servlet API (Tomcat 9 usa javax.servlet) -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -34,6 +34,8 @@
     </dependencies>
 
     <build>
+        <finalName>ProjetoExpoeetepa-PROTOTYPE</finalName>
+
         <plugins>
             <!-- Plugin para compilação com Java 21 -->
             <plugin>
@@ -51,6 +53,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
             </plugin>
         </plugins>
     </build>

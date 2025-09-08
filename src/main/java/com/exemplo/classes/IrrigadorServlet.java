@@ -1,14 +1,15 @@
 package com.exemplo.classes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.ValueInstantiationException;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
 
-@WebServlet("/estacao")
-public class EstacaoServlet extends HttpServlet {
-  private EstacaoManager manager = EstacaoManager.getInstance();
+@WebServlet("/irrigador")
+public class IrrigadorServlet extends HttpServlet {
+  private IrrigadorManager manager = IrrigadorManager.getInstance();
   private ObjectMapper mapper = new ObjectMapper();
 
   @Override
@@ -19,9 +20,8 @@ public class EstacaoServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    // Converte JSON -> Device
-    Estacao device = mapper.readValue(req.getInputStream(), Estacao.class);
-    // Atualiza no gerenciador
-    manager.updateDevice(device);
+    Irrigador irrigador = mapper.readValue(req.getInputStream(), Irrigador.class);
+
+    manager.updateIrrigador(id, irrigador);
   }
 }
