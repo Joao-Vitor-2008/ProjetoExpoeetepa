@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Monitoramento</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #333; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 6px; }
+    .card { border: 1px solid #ccc; border-radius: 6px; padding: 10px; margin: 10px 0; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>Monitoramento</h1>
+
+  <h2>Irrigadores</h2>
+  <div id="lista-irrigadores"></div>
+
+  <h2>Estações</h2>
+  <div id="lista-estacoes"></div>
+
+  <script>
+    async function carregarDados() {
+      try {
+        const resp = await fetch("http://localhost:8080/ProjetoExpoeetepa-PROTOTYPE/dashboard");
+        const dados = await resp.json();
+
+        // Irrigadores
+        const listaIrr = document.getElementById("lista-irrigadores");
+        listaIrr.innerHTML = "";
+        Object.values(dados.irrigadores).forEach(irr => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.textContent = `ID: ${irr.id}, Umidade Solo: ${irr.umidadeSolo}, Ação: ${irr.acaoAtual}, Tempo Restante: ${irr.tempoRestante}`;
+          listaIrr.appendChild(div);
+        });
+
+        // Estações
+        const listaEst = document.getElementById("lista-estacoes");
+        listaEst.innerHTML = "";
+        Object.values(dados.estacoes).forEach(est => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.textContent = `ID: ${est.id}, Temperatura: ${est.temperaturaAr}, Umidade: ${est.umidadeAr}`;
+          listaEst.appendChild(div);
+        });
+
+      } catch (err) {
+        console.error("Erro ao carregar dados:", err);
+      }
+    }
+
+    // Carrega ao abrir e atualiza a cada 5s
+    carregarDados();
+    setInterval(carregarDados, 5000);
+  </script>
+</body>
+</html>
+

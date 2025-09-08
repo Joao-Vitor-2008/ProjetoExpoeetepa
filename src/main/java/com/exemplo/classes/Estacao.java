@@ -1,45 +1,26 @@
 package com.exemplo.classes;
 
 public class Estacao {
-  private String id;
-  private double temperaturaAr;
-  private double umidadeAr;
 
-  public Estacao(String id, double temperaturaAr, double umidadeAr) {
-    this.id = id;
-    this.temperaturaAr = temperaturaAr;
-    this.umidadeAr = umidadeAr;
-  }
+    private String id;
+    private int temperaturaAr;
+    private int umidadeAr;
 
-  // Getters e Setters
-  public String getId() {
-    return id;
-  }
+    // Construtor padrão (necessário para Jackson)
+    public Estacao() {}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    // Getters e Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-  public double getTemperaturaAr() {
-    return temperaturaAr;
-  }
+    public int getTemperaturaAr() { return temperaturaAr; }
+    public void setTemperaturaAr(int temperaturaAr) { this.temperaturaAr = temperaturaAr; }
 
-  public void setTemperaturaAr(double temperaturaAr) {
-    this.temperaturaAr = temperaturaAr;
-  }
+    public int getUmidadeAr() { return umidadeAr; }
+    public void setUmidadeAr(int umidadeAr) { this.umidadeAr = umidadeAr; }
 
-  public double getUmidadeAr() {
-    return umidadeAr;
-  }
-
-  public void setUmidadeAr(double umidadeAr) {
-    this.umidadeAr = umidadeAr;
-  }
-
-  @Override
-  public String toString() {
-    return "Estação [ID=" + id +
-        ", Temperatura=" + temperaturaAr + "°C" +
-        ", Umidade=" + umidadeAr + "%]";
-  }
+    @Override
+    public String toString() {
+        return "Estacao [ID=" + id + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";
+    }
 }
