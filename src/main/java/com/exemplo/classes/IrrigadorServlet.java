@@ -20,7 +20,9 @@ public class IrrigadorServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Irrigador irrigador = mapper.readValue(req.getInputStream(), Irrigador.class);
-
     manager.updateIrrigador(irrigador);
+
+    resp.setContentType("application/json");
+    resp.getWriter().write(irrigador.getComando());
   }
 }

@@ -9,6 +9,8 @@ public class Irrigador {
   private int limiarUmidade;
   private String comando;
 
+  EstacaoManager estacao = EstacaoManager.getInstance();
+
   // Getters e Setters
   public int getCicloDias() {
     return cicloDias;
@@ -27,7 +29,11 @@ public class Irrigador {
   }
 
   public String getComando() {
-    return comando;
+    if (umidadeSolo < limiarUmidade) {
+      return comando = "desligar";
+    } else {
+      return comando = "ligar";
+    }
   }
 
   public void setComando(String comando) {
