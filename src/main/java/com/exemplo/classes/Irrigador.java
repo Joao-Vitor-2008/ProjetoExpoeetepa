@@ -15,7 +15,7 @@ public class Irrigador {
   public int getCicloDias() {
     return cicloDias;
   }
-
+ 
   public void setCicloDias(int cicloDias) {
     this.cicloDias = cicloDias;
   }
