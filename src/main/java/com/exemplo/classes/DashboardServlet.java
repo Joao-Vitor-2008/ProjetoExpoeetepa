@@ -1,7 +1,6 @@
 package com.exemplo.classes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;

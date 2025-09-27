@@ -40,7 +40,7 @@
     </dependencies>
 
     <build>
-        <finalName>ProjetoExpoeetepa-PROTOTYPE</finalName>
+        <finalName>ProjetoExpoeetepa</finalName>
 
         <plugins>
             <!-- Plugin para compilação com Java 21 -->

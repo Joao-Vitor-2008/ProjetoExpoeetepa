@@ -19,6 +19,12 @@ public class Estacao {
     public int getUmidadeAr() { return umidadeAr; }
     public void setUmidadeAr(int umidadeAr) { this.umidadeAr = umidadeAr; }
 
+    private static Estacao instance = new Estacao();
+    public static Estacao getInstance() {
+      return instance;
+    }
+
+
     @Override
     public String toString() {
         return "Estacao [ID=" + id + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";

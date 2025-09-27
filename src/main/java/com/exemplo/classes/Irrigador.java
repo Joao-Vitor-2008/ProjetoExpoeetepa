@@ -9,13 +9,13 @@ public class Irrigador {
   private int limiarUmidade;
   private String comando;
 
-  EstacaoManager estacao = EstacaoManager.getInstance();
+  private static Estacao instance = Estacao.getInstance();
 
   // Getters e Setters
   public int getCicloDias() {
     return cicloDias;
   }
- 
+
   public void setCicloDias(int cicloDias) {
     this.cicloDias = cicloDias;
   }
@@ -29,10 +29,10 @@ public class Irrigador {
   }
 
   public String getComando() {
-    if (umidadeSolo < limiarUmidade) {
-      return comando = "desligar";
-    } else {
+    if (umidadeSolo < limiarUmidade && instance.getUmidadeAr() < 50) {
       return comando = "ligar";
+    } else {
+      return comando = "desligar";
     }
   }
 
