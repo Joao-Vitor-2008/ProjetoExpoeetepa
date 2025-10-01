@@ -13,3 +13,4 @@
 *.tmp
 *.bak
 *.sh
+*.env
