@@ -1,60 +1,140 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <title>Monitoramento</title>
+  <title>Painel de Monitoramento</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    h1 { color: #333; }
-    ul { padding-left: 20px; }
-    li { margin-bottom: 6px; }
-    .card { border: 1px solid #ccc; border-radius: 6px; padding: 10px; margin: 10px 0; background: #f9f9f9; }
-  </style>
-</head>
-<body>
-  <h1>Monitoramento</h1>
-
-  <h2>Irrigadores</h2>
-  <div id="lista-irrigadores"></div>
-
-  <h2>Estações</h2>
-  <div id="lista-estacoes"></div>
-
-  <script>
-    async function carregarDados() {
-      try {
-        const resp = await fetch("http://localhost:8080/ProjetoExpoeetepa-PROTOTYPE/dashboard");
-        const dados = await resp.json();
-
-        // Irrigadores
-        const listaIrr = document.getElementById("lista-irrigadores");
-        listaIrr.innerHTML = "";
-        Object.values(dados.irrigadores).forEach(irr => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.textContent = `ID: ${irr.id}, Umidade Solo: ${irr.umidadeSolo}, Ação: ${irr.acaoAtual}, Tempo Restante: ${irr.tempoRestante}`;
-          listaIrr.appendChild(div);
-        });
-
-        // Estações
-        const listaEst = document.getElementById("lista-estacoes");
-        listaEst.innerHTML = "";
-        Object.values(dados.estacoes).forEach(est => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.textContent = `ID: ${est.id}, Temperatura: ${est.temperaturaAr}, Umidade: ${est.umidadeAr}`;
-          listaEst.appendChild(div);
-        });
-
-      } catch (err) {
-        console.error("Erro ao carregar dados:", err);
-      }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
     }
 
-    // Carrega ao abrir e atualiza a cada 5s
-    carregarDados();
-    setInterval(carregarDados, 5000);
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .valor {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .label {
+      color: #555;
+    }
+
+    .grafico {
+      max-width: 900px;
+      margin: 40px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Painel de Monitoramento</h1>
+
+  <!-- Cards com dados -->
+  <div class="grid">
+    <div class="card">
+      <div class="label">Umidade do Solo</div>
+      <div class="valor" id="umidadeSolo">--%</div>
+    </div>
+    <div class="card">
+      <div class="label">Temperatura</div>
+      <div class="valor" id="temperatura">-- °C</div>
+    </div>
+    <div class="card">
+      <div class="label">Chuva</div>
+      <div class="valor" id="chuva">-- mm</div>
+    </div>
+    <div class="card">
+      <div class="label">Vento</div>
+      <div class="valor" id="vento">-- km/h</div>
+    </div>
+  </div>
+
+  <!-- Gráfico de Umidade -->
+  <div class="grafico">
+    <canvas id="graficoUmidade"></canvas>
+  </div>
+
+  <script>
+    // Configuração do gráfico
+    const ctx = document.getElementById('graficoUmidade').getContext('2d');
+    const graficoUmidade = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Umidade do Solo (%)',
+          data: [],
+          borderColor: '#0077cc',
+          backgroundColor: 'rgba(0,119,204,0.2)',
+          fill: true,
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {beginAtZero: true, max: 100}
+        }
+      }
+    });
+
+    // Atualização simulada dos dados
+    function atualizarDados() {
+      const umidade = (30 + Math.random() * 40).toFixed(1);
+      const temp = (15 + Math.random() * 20).toFixed(1);
+      const chuva = (Math.random() * 10).toFixed(1);
+      const vento = (Math.random() * 25).toFixed(1);
+
+      document.getElementById("umidadeSolo").innerText = umidade + "%";
+      document.getElementById("temperatura").innerText = temp + " °C";
+      document.getElementById("chuva").innerText = chuva + " mm";
+      document.getElementById("vento").innerText = vento + " km/h";
+
+      // Atualiza gráfico
+      const hora = new Date().toLocaleTimeString();
+      graficoUmidade.data.labels.push(hora);
+      graficoUmidade.data.datasets[0].data.push(umidade);
+
+      if (graficoUmidade.data.labels.length > 10) {
+        graficoUmidade.data.labels.shift();
+        graficoUmidade.data.datasets[0].data.shift();
+      }
+
+      graficoUmidade.update();
+    }
+
+    setInterval(atualizarDados, 3000); // atualiza a cada 3 segundos
+    atualizarDados();
   </script>
 </body>
-</html>
 
+</html>
