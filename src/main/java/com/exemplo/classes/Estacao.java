@@ -5,7 +5,7 @@ public class Estacao {
   private String id;
   private int temperaturaAr;
   private int umidadeAr;
-  private double presaoAr;
+  private int presaoAr;
 
   // Construtor padrão (necessário para Jackson)
   public Estacao() {
@@ -13,11 +13,11 @@ public class Estacao {
 
   // Getters e Setters
 
-  public double getPressaoAr() {
+  public int getPressaoAr() {
     return presaoAr;
   }
 
-  public void setPressaoAr(double presaoAr) {
+  public void setPressaoAr(Integer presaoAr) {
     this.presaoAr = presaoAr;
   }
 

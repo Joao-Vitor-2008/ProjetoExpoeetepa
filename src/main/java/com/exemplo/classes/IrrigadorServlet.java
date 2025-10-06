@@ -23,6 +23,6 @@ public class IrrigadorServlet extends HttpServlet {
     manager.updateIrrigador(irrigador);
 
     resp.setContentType("application/json");
-    resp.getWriter().write(irrigador.getComando());
+    resp.getWriter().write(manager.getComando(irrigador));
   }
 }

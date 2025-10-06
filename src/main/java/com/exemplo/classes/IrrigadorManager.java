@@ -1,11 +1,27 @@
 package com.exemplo.classes;
 
 import java.util.concurrent.ConcurrentHashMap;
+
 import java.util.Map;
 
 public class IrrigadorManager {
   private static IrrigadorManager instance = new IrrigadorManager();
+
   private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
+
+  private Estacao estacao = Estacao.getInstance();
+
+  public String getComando(Irrigador irrigador) {
+    if (irrigador.getId().equals("x") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
+        && estacao.getTemperaturaAr() > 30) {
+      return "ligar";
+    } else if (irrigador.getId().equals("y") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
+        && estacao.getTemperaturaAr() > 28) {
+      return "ligar";
+    } else {
+      return "erro";
+    }
+  }
 
   private IrrigadorManager() {
   }
