@@ -29,14 +29,21 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-      </dependency>
+    </dependency>
+  
+    <!-- Smile para treinar o modelo -->
+    <dependency>
+      <groupId>com.github.haifengl</groupId>
+      <artifactId>smile-core</artifactId>
+      <version>3.0.0</version>
+    </dependency>
 
         <!-- Jackson para JSON -->
-        <dependency>
+    <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.16.0</version>
-        </dependency>
+    </dependency>
     </dependencies>
 
     <build>
