@@ -15,21 +15,15 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 30px;
-    }
-
-    h2 {
-      margin-top: 40px;
-      text-align: center;
-      color: #333;
+      margin-bottom: 20px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
       max-width: 1000px;
-      margin: 20px auto;
+      margin: auto;
     }
 
     .card {
@@ -38,27 +32,21 @@
       padding: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
-      transition: transform 0.2s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
     }
 
     .valor {
-      font-size: 1.8em;
+      font-size: 2em;
       font-weight: bold;
-      margin: 8px 0;
+      margin: 10px 0;
     }
 
     .label {
       color: #555;
-      font-weight: 600;
     }
 
     .grafico {
       max-width: 900px;
-      margin: 50px auto;
+      margin: 40px auto;
       background: white;
       padding: 20px;
       border-radius: 12px;
@@ -70,17 +58,29 @@
 <body>
   <h1>Painel de Monitoramento</h1>
 
-  <h2>Estações Meteorológicas</h2>
-  <div id="estacoesGrid" class="grid"></div>
 
-  <h2>Irrigadores</h2>
-  <div id="irrigadoresGrid" class="grid"></div>
+  <div class="grid">
+    <div class="card">
+      <div class="label">Umidade do Solo</div>
+      <div class="valor" id="umidadeSolo">--%</div>
+    </div>
+    <div class="card">
+      <div class="label">Temperatura</div>
+      <div class="valor" id="temperatura">-- °C</div>
+    </div>
+    <div class="card">
+      <div class="label">Pressão</div>
+      <div class="valor" id="pressao">-- hPa</div>
+    </div>
+  </div>
+
 
   <div class="grafico">
     <canvas id="graficoUmidade"></canvas>
   </div>
 
   <script>
+
     const ctx = document.getElementById('graficoUmidade').getContext('2d');
     const graficoUmidade = new Chart(ctx, {
       type: 'line',
@@ -97,78 +97,40 @@
       },
       options: {
         responsive: true,
-        scales: {y: {beginAtZero: true, max: 100}}
+        scales: {
+          y: {beginAtZero: true, max: 100}
+        }
       }
     });
 
     async function atualizarDados() {
       try {
-        const resposta = await fetch("http://localhost:8080/ProjetoExpoeetepa/dashboard");
-        if (!resposta.ok) throw new Error("Falha ao obter dados");
-        const dados = await resposta.json();
+        const response = await fetch('http://localhost:8080/ProjetoExpoeetepa/dashboard');
+        if (!response.ok) throw new Error("Erro ao obter dados da estação");
+        const estacao = await response.json();
 
-        console.log("📡 Dados recebidos do servidor:", dados);
 
-        const estacoesGrid = document.getElementById("estacoesGrid");
-        const irrigadoresGrid = document.getElementById("irrigadoresGrid");
-        estacoesGrid.innerHTML = "";
-        irrigadoresGrid.innerHTML = "";
+        document.getElementById("umidadeSolo").innerText = estacao.umidadeAr + "%";
+        document.getElementById("temperatura").innerText = estacao.temperaturaAr + " °C";
+        document.getElementById("pressao").innerText = estacao.pressaoAr + " hPa";
 
-        // === ESTAÇÕES ===
-        const estacoes = Object.values(dados.estacoes || {});
-        estacoes.forEach(est => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `
-        <div class="label">ID: ${est.id || 'N/A'}</div>
-        <div class="valor">${est.temperaturaAr} °C</div>
-        <div class="label">Temperatura do Ar</div>
-        <div class="valor">${est.umidadeAr}%</div>
-        <div class="label">Umidade do Ar</div>
-        <div class="valor">${est.pressaoAr} hPa</div>
-        <div class="label">Pressão Atmosférica</div>
-      `;
-          estacoesGrid.appendChild(div);
-        });
 
-        // === IRRIGADORES ===
-        const irrigadores = Object.values(dados.irrigadores || {});
-        irrigadores.forEach((ir, i) => {
-          const div = document.createElement("div");
-          div.className = "card";
-          div.innerHTML = `
-        <div class="label">ID: ${ir.id || 'N/A'}</div>
-        <div class="valor">${ir.umidadeSolo}%</div>
-        <div class="label">Umidade do Solo</div>
-        <div class="valor">${ir.acaoAtual || '—'}</div>
-        <div class="label">Ação Atual</div>
-        <div class="valor">${ir.tempoRestante}s</div>
-        <div class="label">Tempo Restante</div>
-        <div class="valor">${ir.cicloDias}</div>
-        <div class="label">Ciclo (Dias)</div>
-        <div class="valor">${ir.limiarUmidade}%</div>
-        <div class="label">Limiar de Umidade</div>
-      `;
-          irrigadoresGrid.appendChild(div);
+        const hora = new Date().toLocaleTimeString();
+        graficoUmidade.data.labels.push(hora);
+        graficoUmidade.data.datasets[0].data.push(estacao.umidadeAr);
 
-          // Atualiza gráfico com o primeiro irrigador
-          if (i === 0) {
-            const hora = new Date().toLocaleTimeString();
-            graficoUmidade.data.labels.push(hora);
-            graficoUmidade.data.datasets[0].data.push(ir.umidadeSolo);
-            if (graficoUmidade.data.labels.length > 10) {
-              graficoUmidade.data.labels.shift();
-              graficoUmidade.data.datasets[0].data.shift();
-            }
-            graficoUmidade.update();
-          }
-        });
+        if (graficoUmidade.data.labels.length > 10) {
+          graficoUmidade.data.labels.shift();
+          graficoUmidade.data.datasets[0].data.shift();
+        }
 
-      } catch (e) {
-        console.error("❌ Erro ao buscar dados:", e);
+        graficoUmidade.update();
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
       }
     }
-    setInterval(atualizarDados, 5000);
+
+    setInterval(atualizarDados, 3000);
     atualizarDados();
   </script>
 </body>
