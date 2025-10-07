@@ -57,8 +57,7 @@
 
 <body>
   <h1>Painel de Monitoramento</h1>
-
-
+  <!-- Cards com dados -->
   <div class="grid">
     <div class="card">
       <div class="label">Umidade do Solo</div>
@@ -69,18 +68,21 @@
       <div class="valor" id="temperatura">-- °C</div>
     </div>
     <div class="card">
-      <div class="label">Pressão</div>
-      <div class="valor" id="pressao">-- hPa</div>
+      <div class="label">Chuva</div>
+      <div class="valor" id="chuva">-- mm</div>
+    </div>
+    <div class="card">
+      <div class="label">Vento</div>
+      <div class="valor" id="vento">-- km/h</div>
     </div>
   </div>
-
-
+  <!-- Gráfico de Umidade -->
   <div class="grafico">
     <canvas id="graficoUmidade"></canvas>
   </div>
 
   <script>
-
+    // Configuração do gráfico
     const ctx = document.getElementById('graficoUmidade').getContext('2d');
     const graficoUmidade = new Chart(ctx, {
       type: 'line',
@@ -103,34 +105,32 @@
       }
     });
 
-    async function atualizarDados() {
-      try {
-        const response = await fetch('http://localhost:8080/ProjetoExpoeetepa/dashboard');
-        if (!response.ok) throw new Error("Erro ao obter dados da estação");
-        const estacao = await response.json();
+    // Atualização simulada dos dados
+    function atualizarDados() {
+      const umidade = (30 + Math.random() * 40).toFixed(1);
+      const temp = (15 + Math.random() * 20).toFixed(1);
+      const chuva = (Math.random() * 10).toFixed(1);
+      const vento = (Math.random() * 25).toFixed(1);
 
+      document.getElementById("umidadeSolo").innerText = umidade + "%";
+      document.getElementById("temperatura").innerText = temp + " °C";
+      document.getElementById("chuva").innerText = chuva + " mm";
+      document.getElementById("vento").innerText = vento + " km/h";
 
-        document.getElementById("umidadeSolo").innerText = estacao.umidadeAr + "%";
-        document.getElementById("temperatura").innerText = estacao.temperaturaAr + " °C";
-        document.getElementById("pressao").innerText = estacao.pressaoAr + " hPa";
+      // Atualiza gráfico
+      const hora = new Date().toLocaleTimeString();
+      graficoUmidade.data.labels.push(hora);
+      graficoUmidade.data.datasets[0].data.push(umidade);
 
-
-        const hora = new Date().toLocaleTimeString();
-        graficoUmidade.data.labels.push(hora);
-        graficoUmidade.data.datasets[0].data.push(estacao.umidadeAr);
-
-        if (graficoUmidade.data.labels.length > 10) {
-          graficoUmidade.data.labels.shift();
-          graficoUmidade.data.datasets[0].data.shift();
-        }
-
-        graficoUmidade.update();
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
+      if (graficoUmidade.data.labels.length > 10) {
+        graficoUmidade.data.labels.shift();
+        graficoUmidade.data.datasets[0].data.shift();
       }
+
+      graficoUmidade.update();
     }
 
-    setInterval(atualizarDados, 3000);
+    setInterval(atualizarDados, 3000); // atualiza a cada 3 segundos
     atualizarDados();
   </script>
 </body>
