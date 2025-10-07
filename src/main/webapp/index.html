@@ -15,15 +15,21 @@
 
     h1 {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      text-align: center;
+      color: #333;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
       max-width: 1000px;
-      margin: auto;
+      margin: 20px auto;
     }
 
     .card {
@@ -32,21 +38,27 @@
       padding: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
     }
 
     .valor {
-      font-size: 2em;
+      font-size: 1.8em;
       font-weight: bold;
-      margin: 10px 0;
+      margin: 8px 0;
     }
 
     .label {
       color: #555;
+      font-weight: 600;
     }
 
     .grafico {
       max-width: 900px;
-      margin: 40px auto;
+      margin: 50px auto;
       background: white;
       padding: 20px;
       border-radius: 12px;
@@ -58,33 +70,17 @@
 <body>
   <h1>Painel de Monitoramento</h1>
 
-  <!-- Cards com dados -->
-  <div class="grid">
-    <div class="card">
-      <div class="label">Umidade do Solo</div>
-      <div class="valor" id="umidadeSolo">--%</div>
-    </div>
-    <div class="card">
-      <div class="label">Temperatura</div>
-      <div class="valor" id="temperatura">-- °C</div>
-    </div>
-    <div class="card">
-      <div class="label">Chuva</div>
-      <div class="valor" id="chuva">-- mm</div>
-    </div>
-    <div class="card">
-      <div class="label">Vento</div>
-      <div class="valor" id="vento">-- km/h</div>
-    </div>
-  </div>
+  <h2>Estações Meteorológicas</h2>
+  <div id="estacoesGrid" class="grid"></div>
 
-  <!-- Gráfico de Umidade -->
+  <h2>Irrigadores</h2>
+  <div id="irrigadoresGrid" class="grid"></div>
+
   <div class="grafico">
     <canvas id="graficoUmidade"></canvas>
   </div>
 
   <script>
-    // Configuração do gráfico
     const ctx = document.getElementById('graficoUmidade').getContext('2d');
     const graficoUmidade = new Chart(ctx, {
       type: 'line',
@@ -101,38 +97,78 @@
       },
       options: {
         responsive: true,
-        scales: {
-          y: {beginAtZero: true, max: 100}
-        }
+        scales: {y: {beginAtZero: true, max: 100}}
       }
     });
 
-    // Atualização simulada dos dados
-    function atualizarDados() {
-      const umidade = (30 + Math.random() * 40).toFixed(1);
-      const temp = (15 + Math.random() * 20).toFixed(1);
-      const chuva = (Math.random() * 10).toFixed(1);
-      const vento = (Math.random() * 25).toFixed(1);
+    async function atualizarDados() {
+      try {
+        const resposta = await fetch("http://localhost:8080/ProjetoExpoeetepa/dashboard");
+        if (!resposta.ok) throw new Error("Falha ao obter dados");
+        const dados = await resposta.json();
 
-      document.getElementById("umidadeSolo").innerText = umidade + "%";
-      document.getElementById("temperatura").innerText = temp + " °C";
-      document.getElementById("chuva").innerText = chuva + " mm";
-      document.getElementById("vento").innerText = vento + " km/h";
+        console.log("📡 Dados recebidos do servidor:", dados);
 
-      // Atualiza gráfico
-      const hora = new Date().toLocaleTimeString();
-      graficoUmidade.data.labels.push(hora);
-      graficoUmidade.data.datasets[0].data.push(umidade);
+        const estacoesGrid = document.getElementById("estacoesGrid");
+        const irrigadoresGrid = document.getElementById("irrigadoresGrid");
+        estacoesGrid.innerHTML = "";
+        irrigadoresGrid.innerHTML = "";
 
-      if (graficoUmidade.data.labels.length > 10) {
-        graficoUmidade.data.labels.shift();
-        graficoUmidade.data.datasets[0].data.shift();
+        // === ESTAÇÕES ===
+        const estacoes = Object.values(dados.estacoes || {});
+        estacoes.forEach(est => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+        <div class="label">ID: ${est.id || 'N/A'}</div>
+        <div class="valor">${est.temperaturaAr} °C</div>
+        <div class="label">Temperatura do Ar</div>
+        <div class="valor">${est.umidadeAr}%</div>
+        <div class="label">Umidade do Ar</div>
+        <div class="valor">${est.pressaoAr} hPa</div>
+        <div class="label">Pressão Atmosférica</div>
+      `;
+          estacoesGrid.appendChild(div);
+        });
+
+        // === IRRIGADORES ===
+        const irrigadores = Object.values(dados.irrigadores || {});
+        irrigadores.forEach((ir, i) => {
+          const div = document.createElement("div");
+          div.className = "card";
+          div.innerHTML = `
+        <div class="label">ID: ${ir.id || 'N/A'}</div>
+        <div class="valor">${ir.umidadeSolo}%</div>
+        <div class="label">Umidade do Solo</div>
+        <div class="valor">${ir.acaoAtual || '—'}</div>
+        <div class="label">Ação Atual</div>
+        <div class="valor">${ir.tempoRestante}s</div>
+        <div class="label">Tempo Restante</div>
+        <div class="valor">${ir.cicloDias}</div>
+        <div class="label">Ciclo (Dias)</div>
+        <div class="valor">${ir.limiarUmidade}%</div>
+        <div class="label">Limiar de Umidade</div>
+      `;
+          irrigadoresGrid.appendChild(div);
+
+          // Atualiza gráfico com o primeiro irrigador
+          if (i === 0) {
+            const hora = new Date().toLocaleTimeString();
+            graficoUmidade.data.labels.push(hora);
+            graficoUmidade.data.datasets[0].data.push(ir.umidadeSolo);
+            if (graficoUmidade.data.labels.length > 10) {
+              graficoUmidade.data.labels.shift();
+              graficoUmidade.data.datasets[0].data.shift();
+            }
+            graficoUmidade.update();
+          }
+        });
+
+      } catch (e) {
+        console.error("❌ Erro ao buscar dados:", e);
       }
-
-      graficoUmidade.update();
     }
-
-    setInterval(atualizarDados, 3000); // atualiza a cada 3 segundos
+    setInterval(atualizarDados, 5000);
     atualizarDados();
   </script>
 </body>
