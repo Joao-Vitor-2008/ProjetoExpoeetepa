@@ -1,5 +1,7 @@
-package com.exemplo.classes;
+package com.exemplo.Dashboard;
 
+import com.exemplo.Estacao.EstacaoManager;
+import com.exemplo.Irrigador.IrrigadorManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;

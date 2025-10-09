@@ -1,4 +1,4 @@
-package com.exemplo.classes;
+package com.exemplo.Irrigador;
 
 public class Irrigador {
   private String id;

@@ -1,4 +1,4 @@
-package com.exemplo.classes;
+package com.exemplo.Estacao;
 
 public class Estacao {
 
