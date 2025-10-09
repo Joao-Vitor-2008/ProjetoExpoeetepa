@@ -1,4 +1,4 @@
-package com.exemplo.classes;
+package com.exemplo.Irrigador;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

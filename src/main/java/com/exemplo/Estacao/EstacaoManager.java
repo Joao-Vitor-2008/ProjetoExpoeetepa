@@ -1,4 +1,4 @@
-package com.exemplo.classes;
+package com.exemplo.Estacao;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;

@@ -1,5 +1,4 @@
-
-package com.exemplo.classes;
+package com.exemplo.Estacao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
