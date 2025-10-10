@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import smile.stat.Hypothesis.t;
-
 public class ConexaoMysql {
 
   public static String STATUS = "Não conectado";
