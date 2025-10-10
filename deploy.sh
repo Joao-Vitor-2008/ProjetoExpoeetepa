@@ -11,7 +11,7 @@ WAR_NAME="ProjetoExpoeetepa.war"                      # Nome do .war que será g
     PROJETO_DIR="/home/joao-vitor/git/ProjetoExpoeetepa/"
     echo "Olá "$USER_NAME"!"
     ;;
-  "joao-admin")
+  "admin")
     PROJETO_DIR="/home/joao/git/ProjetoExpoeetepa/"
     echo "Olá "$USER_NAME"!"
     ;;

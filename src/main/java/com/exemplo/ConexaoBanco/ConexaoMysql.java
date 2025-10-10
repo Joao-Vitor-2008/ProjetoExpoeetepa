@@ -4,30 +4,61 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import smile.stat.Hypothesis.t;
+
 public class ConexaoMysql {
 
   public static String STATUS = "Não conectado";
 
   private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-  private static final String url = "";
-  private static final String user = "root";
-  private static final String password = "senha";
+  private static final String URL = "";
+  private static final String USER = "root";
+  private static final String PASSWORD = "senha";
 
   public ConexaoMysql() {
 
   }
 
-  Connection connection = null;
+  private static Connection connection = null;
 
-  public static java.sql.Connection getConnection() {
+  public static Connection getConnection() {
     try {
-      Class.forName(DRIVER);
-      return DriverManager.getConnection(url, user, password);
-    } catch (Exception e) {
-      e.printStackTrace();
-    } finally {
+      if (connection != null) {
+        return connection;
+      }
 
+      Class.forName(DRIVER);
+      connection = DriverManager.getConnection(URL, USER, PASSWORD);
+      STATUS = "Conectado";
+    } catch (ClassNotFoundException e) {
+      STATUS = "Driver não encontrado";
+      e.printStackTrace();
+    } catch (SQLException f) {
+      STATUS = "Erro de conexão";
+      f.printStackTrace();
     }
+
+    return connection;
+
+  }
+
+  public static String getStatus() {
+    return STATUS;
+  }
+
+  public static boolean closeConnection() {
+    try {
+      if (connection != null && !connection.isClosed()) {
+        connection.close();
+        STATUS = "Conexão Encerrada";
+        return true;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return false;
+
   }
 
 }
