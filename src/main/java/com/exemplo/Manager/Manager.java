@@ -1,16 +1,37 @@
-package com.exemplo.Irrigador;
+package com.exemplo.Manager;
 
-import com.exemplo.Estacao.Estacao;
 import java.util.concurrent.ConcurrentHashMap;
-
 import java.util.Map;
+import com.exemplo.Estacao.Estacao;
+import com.exemplo.ConexaoBanco.ConexaoMysql;
+import java.sql.Connection;
 
-public class IrrigadorManager {
-  private static IrrigadorManager instance = new IrrigadorManager();
+import com.exemplo.Irrigador.Irrigador;
 
+public class Manager {
+  private static Manager manager = new Manager();
+  private Map<String, Estacao> estacoes = new ConcurrentHashMap<>();
   private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
-
   private Estacao estacao = Estacao.getInstance();
+
+  public static Manager getInstance() {
+    return manager;
+  }
+
+  private Manager() {
+  }
+
+  public void updateEstacao(Estacao d) {
+    estacoes.put(d.getId(), d);
+  }
+
+  public Estacao getEstacao(String id) {
+    return estacoes.get(id);
+  }
+
+  public Map<String, Estacao> getTodosEstacao() {
+    return estacoes;
+  }
 
   public String getComando(Irrigador irrigador) {
     if (irrigador.getId().equals("x") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
@@ -26,12 +47,7 @@ public class IrrigadorManager {
     }
   }
 
-  private IrrigadorManager() {
-  }
-
-  public static IrrigadorManager getInstance() {
-    return instance;
-  }
+  Connection conn = ConexaoMysql.getConnection();
 
   public void updateIrrigador(Irrigador irrigador) {
     irrigadores.put(irrigador.getId(), irrigador);
@@ -45,11 +61,8 @@ public class IrrigadorManager {
     return irrigadores;
   }
 
-  public void removerIrrigador(String id) {
-    irrigadores.remove(id);
-  }
-
   public boolean existeIrrigador(String id) {
     return irrigadores.containsKey(id);
   }
+
 }

@@ -1,7 +1,6 @@
 package com.exemplo.Dashboard;
 
-import com.exemplo.Estacao.EstacaoManager;
-import com.exemplo.Irrigador.IrrigadorManager;
+import com.exemplo.Manager.Manager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -19,8 +18,8 @@ public class DashboardServlet extends HttpServlet {
 
     // Cria um JSON com irrigadores e estacoes
     Map<String, Object> dados = new HashMap<>();
-    dados.put("irrigadores", IrrigadorManager.getInstance().getTodos());
-    dados.put("estacoes", EstacaoManager.getInstance().getTodos());
+    dados.put("irrigadores", Manager.getInstance().getTodos());
+    dados.put("estacoes", Manager.getInstance().getTodosEstacao());
 
     response.setContentType("application/json;charset=UTF-8");
     mapper.writeValue(response.getOutputStream(), dados);
