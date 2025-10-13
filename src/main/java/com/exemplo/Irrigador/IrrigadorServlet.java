@@ -1,6 +1,7 @@
 package com.exemplo.Irrigador;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.exemplo.Manager.Manager;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -8,7 +9,7 @@ import java.io.*;
 
 @WebServlet("/irrigador")
 public class IrrigadorServlet extends HttpServlet {
-  private IrrigadorManager manager = IrrigadorManager.getInstance();
+  private Manager manager = Manager.getInstance();
   private ObjectMapper mapper = new ObjectMapper();
 
   @Override

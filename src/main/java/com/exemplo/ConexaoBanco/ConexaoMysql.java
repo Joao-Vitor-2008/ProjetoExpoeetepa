@@ -9,8 +9,11 @@ public class ConexaoMysql {
   public static String STATUS = "Não conectado";
 
   private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-  private static final String URL = "";
   private static final String USER = "root";
+  private static final String dataBasePort = "3306";
+  private static final String hostName = "localhost";
+  private static final String dataBasePrefix = "jdbc: mysql:/";
+  private static final String dataBaseName = "ProjetoExpoeetepaBD";
   private static final String PASSWORD = "senha";
 
   public ConexaoMysql() {
@@ -24,6 +27,8 @@ public class ConexaoMysql {
       if (connection != null) {
         return connection;
       }
+
+      String URL = dataBasePrefix + hostName + ":" + dataBasePort + "/" + dataBaseName + "/";
 
       Class.forName(DRIVER);
       connection = DriverManager.getConnection(URL, USER, PASSWORD);
