@@ -12,7 +12,7 @@ public class ConexaoMysql {
   private static final String USER = "root";
   private static final String dataBasePort = "3306";
   private static final String hostName = "localhost";
-  private static final String dataBasePrefix = "jdbc: mysql:/";
+  private static final String dataBasePrefix = "jdbc:mysql://";
   private static final String dataBaseName = "ProjetoExpoeetepaBD";
   private static final String PASSWORD = "";
 
