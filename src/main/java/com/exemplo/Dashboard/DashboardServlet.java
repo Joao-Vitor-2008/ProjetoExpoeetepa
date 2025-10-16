@@ -12,6 +12,8 @@ import java.util.Map;
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
   private final ObjectMapper mapper = new ObjectMapper();
+  private EstacaoManager estacaoManager = new EstacaoManager();
+  private IrrigadorManager irrigadorManager = new IrrigadorManager();
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -19,8 +21,8 @@ public class DashboardServlet extends HttpServlet {
 
     // Cria um JSON com irrigadores e estacoes
     Map<String, Object> dados = new HashMap<>();
-    dados.put("irrigadores", IrrigadorManager.getInstance().getTodos());
-    dados.put("estacoes", EstacaoManager.getInstance().getTodos());
+    dados.put("irrigadores", irrigadorManager.getTodos());
+    dados.put("estacoes", estacaoManager.getTodosEstacao());
 
     response.setContentType("application/json;charset=UTF-8");
     mapper.writeValue(response.getOutputStream(), dados);

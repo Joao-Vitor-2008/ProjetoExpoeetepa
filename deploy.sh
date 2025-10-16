@@ -44,7 +44,7 @@ sleep 3
 curl -X POST http://localhost:8080/ProjetoExpoeetepa/estacao \
   -H "Content-Type: application/json" \
   -d '{
-    "id": "estacao-central",
+    "nome": "estacao-central",
     "temperaturaAr": 32,
     "umidadeAr": 78,
     "pressaoAr": 1012
@@ -53,7 +53,7 @@ curl -X POST http://localhost:8080/ProjetoExpoeetepa/estacao \
  curl -X POST http://localhost:8080/ProjetoExpoeetepa/irrigador \
   -H "Content-Type: application/json" \
   -d '{
-    "id": "x",
+    "plantio": "x",
     "umidadeSolo": 40,
     "acaoAtual": "desligado",
     "tempoRestante":0,

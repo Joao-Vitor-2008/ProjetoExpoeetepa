@@ -2,9 +2,9 @@ package com.exemplo.Estacao;
 
 public class Estacao {
 
-  private String id;
-  private int temperaturaAr;
-  private int umidadeAr;
+  private String nome;
+  private double temperaturaAr;
+  private double umidadeAr;
   private int pressaoAr;
 
   // Construtor padrão (necessário para Jackson)
@@ -12,6 +12,13 @@ public class Estacao {
   }
 
   // Getters e Setters
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getNome() {
+    return nome;
+  }
 
   public int getPressaoAr() {
     return pressaoAr;
@@ -21,27 +28,19 @@ public class Estacao {
     this.pressaoAr = pressaoAr;
   }
 
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public int getTemperaturaAr() {
+  public double getTemperaturaAr() {
     return temperaturaAr;
   }
 
-  public void setTemperaturaAr(int temperaturaAr) {
+  public void setTemperaturaAr(Double temperaturaAr) {
     this.temperaturaAr = temperaturaAr;
   }
 
-  public int getUmidadeAr() {
+  public double getUmidadeAr() {
     return umidadeAr;
   }
 
-  public void setUmidadeAr(int umidadeAr) {
+  public void setUmidadeAr(Double umidadeAr) {
     this.umidadeAr = umidadeAr;
   }
 
@@ -53,6 +52,6 @@ public class Estacao {
 
   @Override
   public String toString() {
-    return "Estacao [ID=" + id + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";
+    return "Estacao [Nome=" + nome + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";
   }
 }
