@@ -3,8 +3,8 @@ package com.exemplo.Estacao;
 public class Estacao {
 
   private String id;
-  private int temperaturaAr;
-  private int umidadeAr;
+  private double temperaturaAr;
+  private double umidadeAr;
   private int pressaoAr;
 
   // Construtor padrão (necessário para Jackson)
@@ -29,19 +29,19 @@ public class Estacao {
     this.id = id;
   }
 
-  public int getTemperaturaAr() {
+  public double getTemperaturaAr() {
     return temperaturaAr;
   }
 
-  public void setTemperaturaAr(int temperaturaAr) {
+  public void setTemperaturaAr(Double temperaturaAr) {
     this.temperaturaAr = temperaturaAr;
   }
 
-  public int getUmidadeAr() {
+  public double getUmidadeAr() {
     return umidadeAr;
   }
 
-  public void setUmidadeAr(int umidadeAr) {
+  public void setUmidadeAr(Double umidadeAr) {
     this.umidadeAr = umidadeAr;
   }
 
