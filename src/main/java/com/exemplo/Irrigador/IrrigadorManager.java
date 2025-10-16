@@ -8,6 +8,11 @@ public class IrrigadorManager {
 
   private Estacao estacao = Estacao.getInstance();
   private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
+  private IrrigadorManager irrigadorManager = new IrrigadorManager();
+
+  public IrrigadorManager getIrrigadorManager() {
+    return irrigadorManager;
+  }
 
   public String getComando(Irrigador irrigador) {
     if (irrigador.getPlantio().equals("x") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()

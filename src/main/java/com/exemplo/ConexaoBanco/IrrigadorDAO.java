@@ -1,29 +1,32 @@
+
 package com.exemplo.ConexaoBanco;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import com.exemplo.Irrigador.Irrigador;
+import com.exemplo.ConexaoBanco.ConexaoMysql;
 
 public class IrrigadorDAO {
 
-  public void inserirDadosIrrigador(Irrigador irrigador) {
-    String sql = ("INSERT INTO irrigadores (plantio, umidadeSolo, acaoAtual, tempoRestante, cicloDias, limiarUmidade) VALUES (?,?,?,?,?,?)");
+    public void inserirDadosIrrigador(Irrigador irrigador) {
+        String sql = "INSERT INTO irrigadores (plantio, umidadeSolo, acaoAtual, tempoRestante, cicloDias, limiarUmidade) VALUES (?,?,?,?,?,?)";
 
-    try (Connection conn = ConexaoMysql.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
-      stmt.setString(1, irrigador.getPlantio());
-      stmt.setDouble(2, irrigador.getUmidadeSolo());
-      stmt.setString(3, irrigador.getAcaoAtual());
-      stmt.setInt(4, irrigador.getTempoRestante());
-      stmt.setInt(5, irrigador.getCicloDias());
-      stmt.setInt(6, irrigador.getLimiarUmidade());
+        try (Connection conn = ConexaoMysql.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-      stmt.executeUpdate();
+            stmt.setString(1, irrigador.getPlantio());
+            stmt.setDouble(2, irrigador.getUmidadeSolo());
+            stmt.setString(3, irrigador.getAcaoAtual());
+            stmt.setInt(4, irrigador.getTempoRestante());
+            stmt.setInt(5, irrigador.getCicloDias());
+            stmt.setInt(6, irrigador.getLimiarUmidade());
 
-    } catch (SQLException e) {
-      e.printStackTrace();
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-  }
-
 }
+
