@@ -4,25 +4,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
 public class EstacaoManager {
-  private static EstacaoManager instance = new EstacaoManager();
-  private Map<String, Estacao> dispositivos = new ConcurrentHashMap<>();
 
-  private EstacaoManager() {
+  private Map<String, Estacao> estacoes = new ConcurrentHashMap<>();
+
+  public void updateEstacao(Estacao d) {
+    estacoes.put(d.getNome(), d);
   }
 
-  public static EstacaoManager getInstance() {
-    return instance;
+  public Estacao getEstacao(String nome) {
+    return estacoes.get(nome);
   }
 
-  public void updateDevice(Estacao d) {
-    dispositivos.put(d.getId(), d);
+  public Map<String, Estacao> getTodosEstacao() {
+    return estacoes;
   }
 
-  public Estacao getDevice(String id) {
-    return dispositivos.get(id);
-  }
-
-  public Map<String, Estacao> getTodos() {
-    return dispositivos;
-  }
 }

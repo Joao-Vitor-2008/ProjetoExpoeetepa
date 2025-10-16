@@ -2,13 +2,16 @@ package com.exemplo.Irrigador;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import com.exemplo.ConexaoBanco.IrrigadorDAO;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
 
 @WebServlet("/irrigador")
 public class IrrigadorServlet extends HttpServlet {
-  private IrrigadorManager manager = IrrigadorManager.getInstance();
+  private IrrigadorDAO irrigadorDAO = new IrrigadorDAO();
+  private IrrigadorManager manager = new IrrigadorManager();
   private ObjectMapper mapper = new ObjectMapper();
 
   @Override
@@ -21,6 +24,7 @@ public class IrrigadorServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Irrigador irrigador = mapper.readValue(req.getInputStream(), Irrigador.class);
     manager.updateIrrigador(irrigador);
+    irrigadorDAO.inserirDadosIrrigador(irrigador);
 
     resp.setContentType("application/json");
     resp.getWriter().write("comando:" + manager.getComando(irrigador));
