@@ -5,17 +5,17 @@ import java.util.Map;
 
 public class EstacaoManager {
 
-  private Map<Integer, Estacao> estacoes = new ConcurrentHashMap<>();
+  private Map<String, Estacao> estacoes = new ConcurrentHashMap<>();
 
   public void updateEstacao(Estacao d) {
-    estacoes.put(d.getId(), d);
+    estacoes.put(d.getNome(), d);
   }
 
-  public Estacao getEstacao(Integer id) {
-    return estacoes.get(id);
+  public Estacao getEstacao(String nome) {
+    return estacoes.get(nome);
   }
 
-  public Map<Integer, Estacao> getTodosEstacao() {
+  public Map<String, Estacao> getTodosEstacao() {
     return estacoes;
   }
 
