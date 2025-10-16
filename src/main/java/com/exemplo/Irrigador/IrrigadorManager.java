@@ -7,14 +7,14 @@ import com.exemplo.Estacao.Estacao;
 public class IrrigadorManager {
 
   private Estacao estacao = Estacao.getInstance();
-  private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
+  private Map<Integer, Irrigador> irrigadores = new ConcurrentHashMap<>();
 
   public String getComando(Irrigador irrigador) {
-    if (irrigador.getId().equals("x") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
+    if (irrigador.getId() == 1 && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
         && estacao.getTemperaturaAr() > 30) {
       irrigador.setAcaoAtual("ligar");
       return "ligar";
-    } else if (irrigador.getId().equals("y") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
+    } else if (irrigador.getId() == 2 && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
         && estacao.getTemperaturaAr() > 28) {
       irrigador.setAcaoAtual("ligar");
       return "ligar";
@@ -27,15 +27,15 @@ public class IrrigadorManager {
     irrigadores.put(irrigador.getId(), irrigador);
   }
 
-  public Irrigador getIrrigador(String id) {
+  public Irrigador getIrrigador(Integer id) {
     return irrigadores.get(id);
   }
 
-  public Map<String, Irrigador> getTodos() {
+  public Map<Integer, Irrigador> getTodos() {
     return irrigadores;
   }
 
-  public boolean existeIrrigador(String id) {
+  public boolean existeIrrigador(Integer id) {
     return irrigadores.containsKey(id);
   }
 

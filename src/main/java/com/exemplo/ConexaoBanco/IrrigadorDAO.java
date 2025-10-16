@@ -10,10 +10,9 @@ public class IrrigadorDAO {
   public void inserirDadosIrrigador(Irrigador irrigador) {
     String sql = ("INSERT INTO irrigadores (plantio, umidadeSolo, acaoAtual, tempoRestante, cicloDias, limiarUmidade) VALUES (?,?,?,?,?,?)");
 
-    try (Connection conn = ConexaoMysql.getConnection()) {
-      PreparedStatement stmt = conn.prepareStatement(sql);
-
-      stmt.setString(1, irrigador.getId());
+    try (Connection conn = ConexaoMysql.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+      stmt.setString(1, irrigador.getPlantio());
       stmt.setDouble(2, irrigador.getUmidadeSolo());
       stmt.setString(3, irrigador.getAcaoAtual());
       stmt.setInt(4, irrigador.getTempoRestante());
