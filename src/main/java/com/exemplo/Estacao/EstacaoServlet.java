@@ -1,6 +1,5 @@
 package com.exemplo.Estacao;
 
-import com.exemplo.Manager.Manager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -8,7 +7,7 @@ import java.io.*;
 
 @WebServlet("/estacao")
 public class EstacaoServlet extends HttpServlet {
-  private final Manager manager = Manager.getInstance();
+  private EstacaoManager manager = new EstacaoManager();
   private final ObjectMapper mapper = new ObjectMapper();
   Estacao estacao = Estacao.getInstance();
 

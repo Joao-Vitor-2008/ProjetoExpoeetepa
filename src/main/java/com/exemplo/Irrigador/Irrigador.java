@@ -44,7 +44,6 @@ public class Irrigador {
   public Irrigador() {
   }
 
-  // Getters e Setters
   public String getId() {
     return id;
   }
