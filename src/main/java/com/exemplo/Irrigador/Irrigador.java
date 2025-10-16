@@ -1,7 +1,8 @@
 package com.exemplo.Irrigador;
 
 public class Irrigador {
-  private String id;
+  private int id;
+  private String plantio;
   private double umidadeSolo;
   private String acaoAtual;
   private int tempoRestante;
@@ -44,11 +45,19 @@ public class Irrigador {
   public Irrigador() {
   }
 
-  public String getId() {
+  public String getPlantio() {
+    return plantio;
+  }
+
+  public void setPlantio(String plantio) {
+    this.plantio = plantio;
+  }
+
+  public int getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 

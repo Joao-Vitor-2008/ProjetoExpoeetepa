@@ -2,7 +2,8 @@ package com.exemplo.Estacao;
 
 public class Estacao {
 
-  private String id;
+  private int id;
+  private String nome;
   private double temperaturaAr;
   private double umidadeAr;
   private int pressaoAr;
@@ -12,6 +13,13 @@ public class Estacao {
   }
 
   // Getters e Setters
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getNome() {
+    return nome;
+  }
 
   public int getPressaoAr() {
     return pressaoAr;
@@ -21,11 +29,11 @@ public class Estacao {
     this.pressaoAr = pressaoAr;
   }
 
-  public String getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
