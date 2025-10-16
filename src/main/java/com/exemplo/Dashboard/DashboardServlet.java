@@ -12,8 +12,8 @@ import java.util.Map;
 @WebServlet("/dashboard")
 public class DashboardServlet extends HttpServlet {
   private final ObjectMapper mapper = new ObjectMapper();
-  private EstacaoManager estacaoManager = new EstacaoManager();
-  private IrrigadorManager irrigadorManager = new IrrigadorManager();
+  private EstacaoManager estacaoManager = EstacaoManager.IrrigadorManager;
+    private IrrigadorManager irrigadorManager = IrrigadorManager.getIrrigadorManager();
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)

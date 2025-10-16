@@ -7,22 +7,22 @@ USE ProjetoExpoeetepaBD;
 CREATE TABLE estacoes (
     id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(32),
-    temperaturaAr FLOAT(3,2),
-    umidadeAr FLOAT(3,2),
-    pressaoAr FLOAT(4,2),
+    temperaturaAr FLOAT,
+    umidadeAr FLOAT,
+    pressaoAr FLOAT,
     data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE irrigadores (
     id INT(3) NOT NULL AUTO_INCREMENT,
-    id_estacao INT(3),
+    id_estacao INT,
     plantio VARCHAR(32),
-    umidadeSolo FLOAT(3,2),
+    umidadeSolo FLOAT,
     acaoAtual ENUM('ligar','desligar'),
-    tempoRestante INT(11),
-    cicloDias INT(2),
-    limiarUmidade FLOAT(3,2),
+    tempoRestante INT,
+    cicloDias INT,
+    limiarUmidade FLOAT,
     PRIMARY KEY (id),
     KEY fk_estacao (id_estacao),
     CONSTRAINT fk_estacao FOREIGN KEY (id_estacao) REFERENCES estacoes(id) ON DELETE SET NULL
