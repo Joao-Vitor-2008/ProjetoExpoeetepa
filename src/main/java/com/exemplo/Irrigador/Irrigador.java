@@ -1,7 +1,6 @@
 package com.exemplo.Irrigador;
 
 public class Irrigador {
-  private int id;
   private String plantio;
   private double umidadeSolo;
   private String acaoAtual;
@@ -33,7 +32,7 @@ public class Irrigador {
 
   @Override
   public String toString() {
-    return "Irrigador [ID=" + id +
+    return "Irrigador [plantio=" + plantio +
         ", Umidade Solo=" + umidadeSolo +
         "%, Ação Atual=" + acaoAtual +
         ", Tempo Restante=" + tempoRestante + "s" +
@@ -51,14 +50,6 @@ public class Irrigador {
 
   public void setPlantio(String plantio) {
     this.plantio = plantio;
-  }
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   public double getUmidadeSolo() {

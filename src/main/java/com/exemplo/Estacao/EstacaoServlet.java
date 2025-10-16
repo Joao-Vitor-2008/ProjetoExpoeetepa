@@ -21,7 +21,7 @@ public class EstacaoServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Estacao nova = mapper.readValue(req.getInputStream(), Estacao.class);
 
-    estacao.setId(nova.getId());
+    estacao.setNome(nova.getNome());
     estacao.setPressaoAr(nova.getPressaoAr());
     estacao.setTemperaturaAr(nova.getTemperaturaAr());
     estacao.setUmidadeAr(nova.getUmidadeAr());

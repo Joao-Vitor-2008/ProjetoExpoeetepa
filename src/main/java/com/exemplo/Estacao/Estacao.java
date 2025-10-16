@@ -2,7 +2,6 @@ package com.exemplo.Estacao;
 
 public class Estacao {
 
-  private int id;
   private String nome;
   private double temperaturaAr;
   private double umidadeAr;
@@ -29,14 +28,6 @@ public class Estacao {
     this.pressaoAr = pressaoAr;
   }
 
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public double getTemperaturaAr() {
     return temperaturaAr;
   }
@@ -61,6 +52,6 @@ public class Estacao {
 
   @Override
   public String toString() {
-    return "Estacao [ID=" + id + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";
+    return "Estacao [Nome=" + nome + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";
   }
 }
