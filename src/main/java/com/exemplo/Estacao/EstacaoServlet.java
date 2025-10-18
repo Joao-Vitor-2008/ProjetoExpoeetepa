@@ -9,7 +9,6 @@ import java.io.*;
 public class EstacaoServlet extends HttpServlet {
   private EstacaoManager manager = new EstacaoManager();
   private final ObjectMapper mapper = new ObjectMapper();
-  Estacao estacao = Estacao.getInstance();
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -19,12 +18,7 @@ public class EstacaoServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    Estacao nova = mapper.readValue(req.getInputStream(), Estacao.class);
-
-    estacao.setNome(nova.getNome());
-    estacao.setPressaoAr(nova.getPressaoAr());
-    estacao.setTemperaturaAr(nova.getTemperaturaAr());
-    estacao.setUmidadeAr(nova.getUmidadeAr());
+    Estacao estacao = mapper.readValue(req.getInputStream(), Estacao.class);
 
     manager.updateEstacao(estacao);
   }

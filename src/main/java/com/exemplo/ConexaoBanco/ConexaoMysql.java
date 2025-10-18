@@ -4,56 +4,54 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.exemplo.ClassesAuxiliares.STATUS;
+
 public class ConexaoMysql {
 
-    public static String STATUS = "Não conectado";
+  private static STATUS status = STATUS.getInstance();
+  private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+  private static final String USER = "admin";
+  private static final String PASSWORD = "senha";
+  private static final String HOST = "localhost";
+  private static final String PORT = "3306";
+  private static final String DATABASE = "ProjetoExpoeetepaBD";
+  private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE
+      + "?useSSL=false&serverTimezone=UTC";
 
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String USER = "admin";
-    private static final String PASSWORD = "8U7=~mf-VhL7|q6Bgw/x";
-    private static final String HOST = "localhost";
-    private static final String PORT = "3306";
-    private static final String DATABASE = "ProjetoExpoeetepaBD";
-    private static final String URL = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?useSSL=false&serverTimezone=UTC";
+  private static Connection connection;
 
-    private static Connection connection = null;
+  public static Connection getConnection() throws SQLException {
+    try {
+      if (connection != null && !connection.isClosed()) {
+        return connection;
+      }
 
-    public static Connection getConnection() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                return connection;
-            }
+      Class.forName(DRIVER);
+      connection = DriverManager.getConnection(URL, USER, PASSWORD);
+      status.setStatus("Conectado com sucesso");
+      return connection;
 
-            Class.forName(DRIVER);
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            STATUS = "Conectado com sucesso!";
-            return connection;
-
-        } catch (ClassNotFoundException e) {
-            STATUS = "Driver JDBC não encontrado!";
-            e.printStackTrace();
-        } catch (SQLException e) {
-            STATUS = "Erro ao conectar ao banco de dados!";
-            e.printStackTrace();
-        }
-
-        return null;
+    } catch (ClassNotFoundException e) {
+      status.setStatus("DRIVER não encontrado");
+      e.printStackTrace();
+    } catch (SQLException e) {
+      status.setStatus("Erro SQL");
+      e.printStackTrace();
     }
 
-    public static String getStatus() {
-        return STATUS;
-    }
+    return connection;
+  }
 
-    public static boolean closeConnection() {
-        try {
-            if (connection != null && !connection.isClosed()) {
-                connection.close();
-                STATUS = "Conexão encerrada.";
-                return true;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+  public static boolean closeConnection() {
+    try {
+      if (connection != null && !connection.isClosed()) {
+        connection.close();
+        status.setStatus("Conexão encerrada.");
+        return true;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
+    return false;
+  }
 }
