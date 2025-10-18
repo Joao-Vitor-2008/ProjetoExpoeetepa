@@ -1,22 +1,23 @@
 package com.exemplo.Estacao;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
+
+import com.exemplo.ClassesAuxiliares.Store;
 
 public class EstacaoManager {
 
-  private Map<String, Estacao> estacoes = new ConcurrentHashMap<>();
+  private Store store = Store.getStoreInstance();
 
   public void updateEstacao(Estacao d) {
-    estacoes.put(d.getNome(), d);
+    store.getEstacoes().put(d.getNome(), d);
   }
 
   public Estacao getEstacao(String nome) {
-    return estacoes.get(nome);
+    return store.getEstacoes().get(nome);
   }
 
-  public Map<String, Estacao> getTodosEstacao() {
-    return estacoes;
+  public Map<String, Estacao> getTodos() {
+    return store.getEstacoes();
   }
 
 }

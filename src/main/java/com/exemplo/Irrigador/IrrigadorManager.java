@@ -1,47 +1,43 @@
 package com.exemplo.Irrigador;
 
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import com.exemplo.Estacao.Estacao;
+
+import com.exemplo.ClassesAuxiliares.Store;
+import com.exemplo.Estacao.EstacaoManager;
 
 public class IrrigadorManager {
 
-  private Estacao estacao = Estacao.getInstance();
-  private Map<String, Irrigador> irrigadores = new ConcurrentHashMap<>();
-  private IrrigadorManager irrigadorManager = new IrrigadorManager();
-
-  public IrrigadorManager getIrrigadorManager() {
-    return irrigadorManager;
-  }
+  private Store store = Store.getStoreInstance();
+  private EstacaoManager estacaoManager = new EstacaoManager();
 
   public String getComando(Irrigador irrigador) {
     if (irrigador.getPlantio().equals("x") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
-        && estacao.getTemperaturaAr() > 30) {
+        && estacaoManager.getEstacao("estacao-central").getTemperaturaAr() > 30) {
       irrigador.setAcaoAtual("ligar");
       return "ligar";
     } else if (irrigador.getPlantio().equals("y") && irrigador.getUmidadeSolo() < irrigador.getLimiarUmidade()
-        && estacao.getTemperaturaAr() > 28) {
+        && estacaoManager.getEstacao("estacao-central").getTemperaturaAr() > 28) {
       irrigador.setAcaoAtual("ligar");
       return "ligar";
     } else {
-      return "erro";
+      return "desligar";
     }
   }
 
   public void updateIrrigador(Irrigador irrigador) {
-    irrigadores.put(irrigador.getPlantio(), irrigador);
+    store.getIrrigadores().put(irrigador.getPlantio(), irrigador);
   }
 
   public Irrigador getIrrigador(String plantio) {
-    return irrigadores.get(plantio);
+    return store.getIrrigadores().get(plantio);
   }
 
   public Map<String, Irrigador> getTodos() {
-    return irrigadores;
+    return store.getIrrigadores();
   }
 
   public boolean existeIrrigador(String id) {
-    return irrigadores.containsKey(id);
+    return store.getIrrigadores().containsKey(id);
   }
 
 }
