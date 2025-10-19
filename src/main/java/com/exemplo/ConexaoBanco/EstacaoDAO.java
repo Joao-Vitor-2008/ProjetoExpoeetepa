@@ -8,7 +8,7 @@ import com.exemplo.Estacao.Estacao;
 public class EstacaoDAO {
 
   public void inserirDadosEstacao(Estacao estacao) {
-    String sql = ("INSERT INTO estacoes (nome, temperaturaAr, umidadeAr, pressaoAr) VALUES (?,?,?,?)");
+    String sql = ("INSERT INTO estacoes (nome, temperaturaAr, umidadeAr, pressaoAr) VALUES (?,?,?,?);");
 
     try (
         Connection conn = ConexaoMysql.getConnection();
