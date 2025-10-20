@@ -12,7 +12,7 @@ public class EstacaoDAO {
 
     try (
         Connection conn = ConexaoMysql.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)) {
+        PreparedStatement stmt = conn.prepareStatement(sql);) {
       stmt.setString(1, estacao.getNome());
       stmt.setDouble(2, estacao.getTemperaturaAr());
       stmt.setDouble(3, estacao.getUmidadeAr());
