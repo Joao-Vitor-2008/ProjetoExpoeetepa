@@ -2,6 +2,7 @@ package com.exemplo.Estacao;
 
 public class Estacao {
 
+  private int id;
   private String nome;
   private double temperaturaAr;
   private double umidadeAr;
@@ -12,6 +13,15 @@ public class Estacao {
   }
 
   // Getters e Setters
+  
+  public void setId(int id){
+    this.id = id;
+  }
+
+  public Integer getId(){
+    return id;
+  }
+
   public void setNome(String nome) {
     this.nome = nome;
   }
