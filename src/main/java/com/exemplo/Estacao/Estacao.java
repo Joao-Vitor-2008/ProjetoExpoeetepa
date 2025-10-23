@@ -1,25 +1,31 @@
 package com.exemplo.Estacao;
 
+import java.sql.Timestamp;
+
 public class Estacao {
 
-  private int id;
   private String nome;
   private double temperaturaAr;
   private double umidadeAr;
   private int pressaoAr;
+  private int indice_uv;
+  private Timestamp data_hora = new java.sql.Timestamp(System.currentTimeMillis());
 
   // Construtor padrão (necessário para Jackson)
   public Estacao() {
   }
 
   // Getters e Setters
-  
-  public void setId(int id){
-    this.id = id;
+  public Timestamp getData_hora() {
+    return data_hora;
   }
 
-  public Integer getId(){
-    return id;
+  public void setIndice_uv(int indice_uv) {
+    this.indice_uv = indice_uv;
+  }
+
+  public int getIndice_uv() {
+    return indice_uv;
   }
 
   public void setNome(String nome) {

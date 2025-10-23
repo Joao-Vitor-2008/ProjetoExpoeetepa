@@ -47,13 +47,14 @@ curl -X POST http://localhost:8080/ProjetoExpoeetepa/estacao \
     "nome": "estacao-central",
     "temperaturaAr": 32,
     "umidadeAr": 78,
-    "pressaoAr": 1012
+    "pressaoAr": 1012,
+    "indice_uv": 40
   }'
 
  curl -X POST http://localhost:8080/ProjetoExpoeetepa/irrigador \
   -H "Content-Type: application/json" \
   -d '{
-    "plantio": "x",
+    "plantio": "y",
     "umidadeSolo": 40,
     "acaoAtual": "desligado",
     "tempoRestante":0,

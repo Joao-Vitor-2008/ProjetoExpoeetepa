@@ -4,18 +4,17 @@ CREATE DATABASE ProjetoExpoeetepaBD CHARACTER SET utf8mb4 COLLATE utf8mb4_unicod
 
 USE ProjetoExpoeetepaBD;
 
-
-USE ProjetoExpoeetepaBD;
-
+-- Tabela de estações
 CREATE TABLE estacoes (
+    data_hora DATETIME PRIMARY KEY,
     nome VARCHAR(32),
     temperaturaAr FLOAT,
     umidadeAr FLOAT,
     pressaoAr FLOAT,
-    data_hora DATETIME,
-    indice_uv INT,
+    indice_uv INT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tabela de irrigadores
 CREATE TABLE irrigadores (
     plantio VARCHAR(32) NOT NULL UNIQUE,
     umidadeSolo FLOAT,
@@ -23,12 +22,15 @@ CREATE TABLE irrigadores (
     tempoRestante INT,
     cicloDias INT,
     limiarUmidade FLOAT,
-    KEY fk_estacao (data_hora),
-    CONSTRAINT fk_estacao FOREIGN KEY (data_hora) REFERENCES estacoes(data_hora) ON DELETE SET NULL
+    data_hora DATETIME,
+    CONSTRAINT fk_estacao
+        FOREIGN KEY (data_hora)
+        REFERENCES estacoes(data_hora)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
+-- Criação do usuário e permissões
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'senha';
 GRANT SELECT, INSERT, UPDATE, DELETE ON ProjetoExpoeetepaBD.* TO 'admin'@'localhost';
 FLUSH PRIVILEGES;
