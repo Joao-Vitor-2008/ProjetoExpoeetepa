@@ -10,10 +10,12 @@ WAR_NAME="ProjetoExpoeetepa.war"                      # Nome do .war que será g
   "joao-vitor")
     PROJETO_DIR="/home/joao-vitor/git/ProjetoExpoeetepa/"
     echo "Olá "$USER_NAME"!"
+    cd $PROJETO_DIR
     ;;
   "admin")
     PROJETO_DIR="/home/admin/git/ProjetoExpoeetepa/"
     echo "Olá "$USER_NAME"!"
+    cd $PROJETO_DIR
     ;;
   *)
     echo "Usuário não reconhecido: $USER_NAME"
