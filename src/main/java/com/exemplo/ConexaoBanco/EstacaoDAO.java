@@ -7,11 +7,11 @@ import com.exemplo.Estacao.Estacao;
 
 public class EstacaoDAO {
 
-  public void inserirDadosEstacao(Estacao estacao) {
+  public void inserirDadosEstacao(Estacao estacao) throws SQLException {
     String sql = ("INSERT INTO estacoes (data_hora, nome, temperaturaAr, umidadeAr, pressaoAr, indice_uv) VALUES (?,?,?,?,?,?);");
 
     try (
-        Connection conn = ConexaoMysql.getConnection();
+        Connection conn = new ConexaoMysql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);) {
       stmt.setTimestamp(1, estacao.getData_hora());
       stmt.setString(2, estacao.getNome());
@@ -22,7 +22,7 @@ public class EstacaoDAO {
 
       stmt.executeUpdate();
     } catch (SQLException e) {
-      e.printStackTrace();
+      throw new RuntimeException("Erro ao inserir dados da estacao: " + estacao.getNome(), e);
     }
   }
 }

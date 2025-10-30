@@ -12,10 +12,10 @@ public class IrrigadorDAO {
   private IrrigadorManager irrigadorManager = new IrrigadorManager();
   private EstacaoManager estacaoManager = new EstacaoManager();
 
-  public void inserirDadosIrrigador(Irrigador irrigador) {
+  public void inserirDadosIrrigador(Irrigador irrigador) throws SQLException {
     String sql = "INSERT INTO irrigadores (plantio, umidadeSolo, acaoAtual, tempoRestante, cicloDias, limiarUmidade, data_hora) VALUES (?,?,?,?,?,?,?);";
 
-    try (Connection conn = ConexaoMysql.getConnection();
+    try (Connection conn = new ConexaoMysql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql);) {
 
       stmt.setString(1, irrigador.getPlantio());
@@ -29,7 +29,7 @@ public class IrrigadorDAO {
       stmt.executeUpdate();
 
     } catch (SQLException e) {
-      e.printStackTrace(System.out);
+      throw new RuntimeException("Erro ao inserir os dados do irrigador: " + irrigador.getPlantio(), e);
     }
   }
 }

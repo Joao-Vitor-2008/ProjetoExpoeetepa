@@ -7,6 +7,7 @@ import com.exemplo.ConexaoBanco.IrrigadorDAO;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 
 @WebServlet("/irrigador")
 public class IrrigadorServlet extends HttpServlet {
@@ -25,7 +26,12 @@ public class IrrigadorServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Irrigador irrigador = mapper.readValue(req.getInputStream(), Irrigador.class);
     manager.updateIrrigador(irrigador);
-    irrigadorDAO.inserirDadosIrrigador(irrigador);
+
+    try {
+      irrigadorDAO.inserirDadosIrrigador(irrigador);
+    } catch (SQLException e) {
+      System.err.println(e.getErrorCode());
+    }
 
     resp.setContentType("application/json");
     resp.getWriter().write("comando:" + manager.getComando(irrigador));

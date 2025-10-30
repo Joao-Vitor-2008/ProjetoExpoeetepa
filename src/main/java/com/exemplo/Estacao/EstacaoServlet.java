@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 
 @WebServlet("/estacao")
 public class EstacaoServlet extends HttpServlet {
@@ -22,7 +23,11 @@ public class EstacaoServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     Estacao estacao = mapper.readValue(req.getInputStream(), Estacao.class);
 
-    estacaoDAO.inserirDadosEstacao(estacao);
+    try {
+      estacaoDAO.inserirDadosEstacao(estacao);
+    } catch (SQLException e) {
+      System.err.println(e.getErrorCode());
+    }
 
     manager.updateEstacao(estacao);
   }
