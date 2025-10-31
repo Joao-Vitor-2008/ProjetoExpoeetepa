@@ -25,7 +25,7 @@ esac
 
 
 # Compilar o projeto
-mvn clean package || {
+mvn -q clean package || {
   echo "Falha na compilação!"
   exit 1
 }
