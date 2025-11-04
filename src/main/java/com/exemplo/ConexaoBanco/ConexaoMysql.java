@@ -11,7 +11,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ConexaoMysql {
 
-  private static final Dotenv dotenv = Dotenv.configure().load();
+  private static final Dotenv dotenv = Dotenv.configure().filename("dados.env").load();
 
   private STATUS status = STATUS.getInstance();
   private static String DRIVER = "com.mysql.cj.jdbc.Driver";
