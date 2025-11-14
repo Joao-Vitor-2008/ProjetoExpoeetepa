@@ -1,4 +1,4 @@
-package com.exemplo.Dashboard;
+package com.exemplo.EndPoints;
 
 import com.exemplo.Estacao.EstacaoManager;
 import com.exemplo.Irrigador.IrrigadorManager;
