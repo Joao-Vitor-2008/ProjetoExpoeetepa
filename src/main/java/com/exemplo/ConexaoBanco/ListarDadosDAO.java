@@ -1,57 +1,68 @@
 package com.exemplo.ConexaoBanco;
 
+import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListarDadosDAO {
 
-  private ObjectMapper mapper = new ObjectMapper();
+  public Map<String, Object> listarDados() throws SQLException {
 
-  public String listarDados() throws SQLException {
-    StringBuilder sbResultado = new StringBuilder();
-    StringBuilder sbEstacoes = new StringBuilder();
-    StringBuilder sbIrrigadores = new StringBuilder();
-    String sqlEstacoes = ("SELECT * FROM estacoes;");
-    String sqlIrrigadores = ("SELECT * FROM irrigadores;");
+    List<Map<String, Object>> estacoes = new ArrayList<>();
+    List<Map<String, Object>> irrigadores = new ArrayList<>();
 
-    // loop pra jogar os dados da querry para um sb
+    String sqlEstacoes = "SELECT * FROM estacoes;";
+    String sqlIrrigadores = "SELECT * FROM irrigadores;";
+
+    // Estacoes
     try (
         Connection conn = new ConexaoMysql().getConnection();
         PreparedStatement sttm = conn.prepareStatement(sqlEstacoes);
         ResultSet result = sttm.executeQuery()) {
 
       while (result.next()) {
-        sbEstacoes.append(result.getDate("data_hora"));
-        sbEstacoes.append(result.getString("nome"));
-
-        // transforma esse sb em json e depois retorna para um sb geral
-        String jsonEstacoes = mapper.writeValueAsString(sbEstacoes);
-        sbResultado.append(jsonEstacoes);
+        Map<String, Object> item = new HashMap<>();
+        Timestamp ts = result.getTimestamp("data_hora");
+        item.put("data_hora", ts == null ? null : ts.toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        item.put("nome", result.getString("nome"));
+        estacoes.add(item);
       }
+
     } catch (Exception e) {
+      throw new SQLException("Erro ao buscar estacoes: " + e.getMessage());
     }
 
-    // loop pra jogar os dados da querry para um sb
+    // ------ IRRIGADORES ------
     try (
         Connection conn = new ConexaoMysql().getConnection();
         PreparedStatement sttm = conn.prepareStatement(sqlIrrigadores);
         ResultSet result = sttm.executeQuery()) {
 
       while (result.next()) {
-        sbIrrigadores.append(result.getInt("id"));
-        sbIrrigadores.append(result.getString("plantio"));
-        sbIrrigadores.append(result.getDate("data_hora"));
-
-        String jsonIrrigadores = mapper.writeValueAsString(sbIrrigadores);
-        sbResultado.append(jsonIrrigadores);
+        Map<String, Object> item = new HashMap<>();
+        item.put("id", result.getInt("id"));
+        item.put("plantio", result.getString("plantio"));
+        Timestamp ts = result.getTimestamp("data_hora");
+        item.put("data_hora", ts == null ? null : ts.toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+        irrigadores.add(item);
       }
+
     } catch (Exception e) {
+      throw new SQLException("Erro ao buscar irrigadores: " + e.getMessage());
     }
 
-    return sbResultado.toString();
+    // JSON FINAL COM OS DOIS
+    Map<String, Object> resposta = new HashMap<>();
+    resposta.put("estacoes", estacoes);
+    resposta.put("irrigadores", irrigadores);
+
+    return resposta;
   }
 }
