@@ -1,11 +1,11 @@
-package com.exemplo.ConexaoBanco;
+package br.com.eetepa.ConexaoBanco;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import com.exemplo.Irrigador.Irrigador;
-import com.exemplo.Irrigador.IrrigadorManager;
-import com.exemplo.Estacao.EstacaoManager;
+import br.com.eetepa.Irrigador.Irrigador;
+import br.com.eetepa.Irrigador.IrrigadorManager;
+import br.com.eetepa.Estacao.EstacaoManager;
 
 public class IrrigadorDAO {
 

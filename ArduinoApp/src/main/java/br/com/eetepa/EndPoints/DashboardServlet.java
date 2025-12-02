@@ -1,7 +1,7 @@
-package com.exemplo.EndPoints;
+package br.com.eetepa.EndPoints;
 
-import com.exemplo.Estacao.EstacaoManager;
-import com.exemplo.Irrigador.IrrigadorManager;
+import br.com.eetepa.Estacao.EstacaoManager;
+import br.com.eetepa.Irrigador.IrrigadorManager;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;

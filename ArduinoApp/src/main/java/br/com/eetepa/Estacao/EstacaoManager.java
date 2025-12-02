@@ -1,8 +1,8 @@
-package com.exemplo.Estacao;
+package br.com.eetepa.Estacao;
 
 import java.util.Map;
 
-import com.exemplo.ClassesAuxiliares.Store;
+import br.com.eetepa.ClassesAuxiliares.Store;
 
 public class EstacaoManager {
 

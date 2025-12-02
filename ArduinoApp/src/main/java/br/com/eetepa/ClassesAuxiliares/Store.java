@@ -1,9 +1,9 @@
-package com.exemplo.ClassesAuxiliares;
+package br.com.eetepa.ClassesAuxiliares;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import com.exemplo.Irrigador.Irrigador;
-import com.exemplo.Estacao.Estacao;
+import br.com.eetepa.Irrigador.Irrigador;
+import br.com.eetepa.Estacao.Estacao;
 
 public class Store {
 

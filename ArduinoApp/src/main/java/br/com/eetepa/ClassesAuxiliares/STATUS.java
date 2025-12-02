@@ -1,4 +1,4 @@
-package com.exemplo.ClassesAuxiliares;
+package br.com.eetepa.ClassesAuxiliares;
 
 public class STATUS {
 

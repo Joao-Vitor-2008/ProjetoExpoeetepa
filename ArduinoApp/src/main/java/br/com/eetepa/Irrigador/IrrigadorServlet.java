@@ -1,8 +1,8 @@
-package com.exemplo.Irrigador;
+package br.com.eetepa.Irrigador;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.exemplo.ClassesAuxiliares.STATUS;
-import com.exemplo.ConexaoBanco.IrrigadorDAO;
+import br.com.eetepa.ClassesAuxiliares.STATUS;
+import br.com.eetepa.ConexaoBanco.IrrigadorDAO;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;

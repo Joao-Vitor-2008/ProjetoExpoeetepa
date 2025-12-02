@@ -1,6 +1,6 @@
-package com.exemplo.Estacao;
+package br.com.eetepa.Estacao;
 
-import com.exemplo.ConexaoBanco.EstacaoDAO;
+import br.com.eetepa.ConexaoBanco.EstacaoDAO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;

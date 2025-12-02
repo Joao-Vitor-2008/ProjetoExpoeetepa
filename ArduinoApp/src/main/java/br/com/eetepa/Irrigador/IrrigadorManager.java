@@ -1,9 +1,9 @@
-package com.exemplo.Irrigador;
+package br.com.eetepa.Irrigador;
 
 import java.util.Map;
 
-import com.exemplo.ClassesAuxiliares.Store;
-import com.exemplo.Estacao.EstacaoManager;
+import br.com.eetepa.ClassesAuxiliares.Store;
+import br.com.eetepa.Estacao.EstacaoManager;
 
 public class IrrigadorManager {
 

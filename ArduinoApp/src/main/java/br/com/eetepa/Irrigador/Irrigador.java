@@ -1,4 +1,4 @@
-package com.exemplo.Irrigador;
+package br.com.eetepa.Irrigador;
 
 public class Irrigador {
   private String plantio;

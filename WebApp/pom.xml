@@ -59,7 +59,7 @@
     </dependencies>
 
     <build>
-        <finalName>ArduinoApp</finalName>
+        <finalName>WebApp</finalName>
 
         <plugins>
             <!-- Plugin para compilação com Java 21 -->

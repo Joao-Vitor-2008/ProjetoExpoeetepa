@@ -1,4 +1,4 @@
-package com.exemplo.Estacao;
+package br.com.eetepa.Estacao;
 
 import java.sql.Timestamp;
 

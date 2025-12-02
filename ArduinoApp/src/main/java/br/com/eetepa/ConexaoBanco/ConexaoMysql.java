@@ -1,9 +1,9 @@
-package com.exemplo.ConexaoBanco;
+package br.com.eetepa.ConexaoBanco;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.exemplo.ClassesAuxiliares.STATUS;
+import br.com.eetepa.ClassesAuxiliares.STATUS;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import com.zaxxer.hikari.HikariConfig;

@@ -1,9 +1,9 @@
-package com.exemplo.ConexaoBanco;
+package br.com.eetepa.ConexaoBanco;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
-import com.exemplo.Estacao.Estacao;
+import br.com.eetepa.Estacao.Estacao;
 
 public class EstacaoDAO {
 

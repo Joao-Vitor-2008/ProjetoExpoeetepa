@@ -44,7 +44,7 @@ sudo systemctl restart mariadb || echo "Erro ao reiniciar o MySQL"
 sleep 3
 
 # Testar o codigo automaticamente
-curl -X POST http://localhost:8080/ProjetoExpoeetepa/estacao \
+curl -X POST http://localhost:8082/ProjetoExpoeetepa/estacao \
   -H "Content-Type: application/json" \
   -d '{
     "nome": "estacao-central",
@@ -54,7 +54,7 @@ curl -X POST http://localhost:8080/ProjetoExpoeetepa/estacao \
     "indice_uv": 40
   }'
 
- curl -X POST http://localhost:8080/ProjetoExpoeetepa/irrigador \
+ curl -X POST http://localhost:8082/ProjetoExpoeetepa/irrigador \
   -H "Content-Type: application/json" \
   -d '{
     "plantio": "teste",
