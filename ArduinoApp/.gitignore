@@ -1,0 +1,15 @@
+# Build e IDE
+/target/
+/bin/
+/*.class
+/*.jar
+/.idea/
+/.settings/
+
+# Sistema e caches
+*.swp
+*.log
+.DS_Store
+*.tmp
+*.bak
+*.env
