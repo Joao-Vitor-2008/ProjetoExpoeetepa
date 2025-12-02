@@ -1,0 +1,49 @@
+# ============================
+# Arquivos e pastas do Eclipse
+# ============================
+.classpath
+.project
+.settings/
+
+# ============================
+# Maven
+# ============================
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# ============================
+# Arquivos de build
+# ============================
+*.class
+*.jar
+*.war
+*.ear
+
+# ============================
+# Logs
+# ============================
+*.log
+
+# ============================
+# Arquivos temporários do SO
+# ============================
+.DS_Store
+Thumbs.db
+
+# ============================
+# Backup files
+# ============================
+*~
+*.swp
+*.swo
+
+# ============================
+# Diretórios específicos
+# ============================
+/ArduinoApp/target/
+/WebApp/target/
+
+
