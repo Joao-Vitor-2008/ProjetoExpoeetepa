@@ -21,8 +21,8 @@ public class ListarDadosServlet extends HttpServlet {
     ListarDadosDAO listarDadosDAO = new ListarDadosDAO();
 
     try {
-      // Agora estamos enviando um OBJETO, que é convertido em JSON corretamente
-      mapper.writeValue(response.getOutputStream(), listarDadosDAO.listarDados());
+      String json = mapper.writeValueAsString(listarDadosDAO.listarDados());
+      response.getWriter().write(json);
 
     } catch (Exception e) {
       response.setStatus(500);
