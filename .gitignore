@@ -22,6 +22,9 @@ release.properties
 *.war
 *.ear
 
+# Dados Sensiveis
+*.env
+
 # ============================
 # Logs
 # ============================
@@ -45,5 +48,4 @@ Thumbs.db
 # ============================
 /ArduinoApp/target/
 /WebApp/target/
-
-
+/WebApp/src/main/resources/*.env
