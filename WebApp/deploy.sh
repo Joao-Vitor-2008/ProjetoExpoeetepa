@@ -2,8 +2,8 @@
 
 # Configurações
 USER_NAME=$(whoami)
-DOCKER_TOMCAT9="/home/joao-vitor/docker/tomcats/web-app/"        # Substitua pelo caminho do Tomcat
-WAR_NAME="WebApp.war"                      # Nome do .war que será gerado pelo Maven (normalmente target/*.war)
+DOCKER_TOMCAT9="/home/$USER_NAME/git/Projeto-Expoeetepa-Irrigadores-Automaticos/docker-data"
+WAR_NAME="WebApp.war"
 
 # Entrar no diretório do projeto
  case "$USER_NAME" in
@@ -30,8 +30,8 @@ mvn -q clean package || {
   exit 1
 }
 
-# Copiar o .war para o Tomcat
-sudo cp "target/$WAR_NAME" "$DOCKER_TOMCAT9/" || {
+# Copiar o .war para o Docker
+  sudo cp "target/$WAR_NAME" "$DOCKER_TOMCAT9/" || {
   echo "Falha ao copiar o WAR!"
   exit 1
 }

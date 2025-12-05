@@ -2,7 +2,7 @@
 
 # Configurações
 USER_NAME=$(whoami)
-DOCKER_TOMCAT9="/home/joao-vitor/docker/tomcats/arduino-app/"
+DOCKER_TOMCAT9="/home/$USER_NAME/git/Projeto-Expoeetepa-Irrigadores-Automaticos/docker-data"
 WAR_NAME="ArduinoApp.war"
 
 # Entrar no diretório do projeto
@@ -42,7 +42,6 @@ sudo systemctl restart tomcat9 || echo "Erro ao recarregar o tomcat"
 sudo systemctl restart mariadb || echo "Erro ao reiniciar o MySQL"
 
 sleep 3
-
 # Testar o codigo automaticamente
 curl -X POST http://localhost:8081/ArduinoApp/estacao \
   -H "Content-Type: application/json" \
