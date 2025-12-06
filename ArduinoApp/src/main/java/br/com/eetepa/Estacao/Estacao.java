@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class Estacao {
 
+  private String id;
   private String nome;
   private double temperaturaAr;
   private double umidadeAr;
@@ -15,40 +16,27 @@ public class Estacao {
   public Estacao() {
   }
 
-  // Getters e Setters
-  public Timestamp getData_hora() {
-    return data_hora;
+  public String getId() {
+    return id;
   }
 
-  public void setIndice_uv(int indice_uv) {
-    this.indice_uv = indice_uv;
-  }
-
-  public int getIndice_uv() {
-    return indice_uv;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setId(String id) {
+    this.id = id;
   }
 
   public String getNome() {
     return nome;
   }
 
-  public int getPressaoAr() {
-    return pressaoAr;
-  }
-
-  public void setPressaoAr(Integer pressaoAr) {
-    this.pressaoAr = pressaoAr;
+  public void setNome(String nome) {
+    this.nome = nome;
   }
 
   public double getTemperaturaAr() {
     return temperaturaAr;
   }
 
-  public void setTemperaturaAr(Double temperaturaAr) {
+  public void setTemperaturaAr(double temperaturaAr) {
     this.temperaturaAr = temperaturaAr;
   }
 
@@ -56,12 +44,31 @@ public class Estacao {
     return umidadeAr;
   }
 
-  public void setUmidadeAr(Double umidadeAr) {
+  public void setUmidadeAr(double umidadeAr) {
     this.umidadeAr = umidadeAr;
   }
 
-  @Override
-  public String toString() {
-    return "Estacao [Nome=" + nome + ", Temp=" + temperaturaAr + ", Umidade=" + umidadeAr + "]";
+  public int getPressaoAr() {
+    return pressaoAr;
+  }
+
+  public void setPressaoAr(int pressaoAr) {
+    this.pressaoAr = pressaoAr;
+  }
+
+  public int getIndice_uv() {
+    return indice_uv;
+  }
+
+  public void setIndice_uv(int indice_uv) {
+    this.indice_uv = indice_uv;
+  }
+
+  public Timestamp getData_hora() {
+    return data_hora;
+  }
+
+  public void setData_hora(Timestamp data_hora) {
+    this.data_hora = data_hora;
   }
 }

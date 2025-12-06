@@ -2,7 +2,7 @@
 
 # Configurações
 USER_NAME=$(whoami)
-DOCKER_TOMCAT9="/home/$USER_NAME/git/Projeto-Expoeetepa-Irrigadores-Automaticos/docker-data"
+DOCKER_TOMCAT9="/home/joao-vitor/git/Projeto-Expoeetepa-Irrigadores-Automaticos/docker-data/arduino-app/"
 WAR_NAME="ArduinoApp.war"
 
 # Entrar no diretório do projeto
